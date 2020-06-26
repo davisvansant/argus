@@ -1,0 +1,8 @@
+kind: pipeline
+name: default
+
+steps:
+- name: argus
+  image: rust:1.44.1
+  commands:
+  - rustc --version
