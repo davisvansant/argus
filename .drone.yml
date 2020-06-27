@@ -6,3 +6,7 @@ steps:
   image: rust:1.44.1
   commands:
   - rustc --version
+  - rustup component add rustfmt clippy
+  - cargo fmt -- --check
+  - cargo clippy --workspace
+  - cargo test --workspace
