@@ -1,3 +1,6 @@
+pub mod digest_256;
+pub mod digest_512;
+
 #[cfg(test)]
 mod tests {
     #[test]
