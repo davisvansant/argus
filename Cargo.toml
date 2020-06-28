@@ -2,5 +2,6 @@
 
 members = [
   "argus_rand",
-  "argus_sha2"
+  "argus_sha2",
+  "argus_x25519"
 ]
