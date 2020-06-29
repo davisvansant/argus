@@ -8,3 +8,4 @@ edition = "2018"
 
 [dependencies]
 x25519-dalek = "0.6.0"
+rand_os = "0.2.2"
