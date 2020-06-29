@@ -1,3 +1,4 @@
+use rand::rngs::OsRng;
 use rand::Rng;
 
 pub fn generate_salt() -> String {
@@ -18,6 +19,10 @@ pub fn generate_salt() -> String {
         })
         .collect();
     salt
+}
+
+pub fn generate_osrng() -> OsRng {
+    OsRng {}
 }
 
 #[cfg(test)]
