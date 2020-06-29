@@ -1,6 +1,6 @@
 use sha2::{Digest, Sha256};
 
-pub fn build_object(password: &String, salt: &String) -> String {
+pub fn build_object(password: &str, salt: &str) -> String {
     let mut hasher = Sha256::new();
 
     hasher.update(&password);
