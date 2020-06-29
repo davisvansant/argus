@@ -1,5 +1,23 @@
-pub fn generate_salt() -> u64 {
-    rand::random::<u64>()
+use rand::Rng;
+
+pub fn generate_salt() -> String {
+    let pool: &[u8] = b"\
+    ABCDEFGHIJKLMNOPQRSTUVWXYZ\
+    abcdefghijklmnopqrstuvwxyz\
+    0123456789\
+    ";
+
+    let salt_length: usize = 16;
+
+    let mut rng = rand::thread_rng();
+
+    let salt: String = (0..salt_length)
+        .map(|_| {
+            let index = rng.gen_range(0, pool.len());
+            pool[index] as char
+        })
+        .collect();
+    salt
 }
 
 #[cfg(test)]
