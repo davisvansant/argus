@@ -8,4 +8,7 @@ edition = "2018"
 
 [dependencies]
 sha2 = "0.9.1"
-hex = "0.4.2" 
+hex = "0.4.2"
+
+[dev-dependencies]
+argus_rand = { path = "../argus_rand" }
