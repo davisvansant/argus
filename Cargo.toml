@@ -1,6 +1,7 @@
 [workspace]
 
 members = [
+  "argus",
   "argus_rand",
   "argus_sha2",
   "argus_ed25519",
