@@ -23,7 +23,7 @@ fn main() {
         let mut new_user_name = String::new();
 
         println!("[ argus ] Please enter your name ----> ",);
-        io::stdout().flush();
+        io::stdout().flush().unwrap();
         io::stdin()
             .read_line(&mut new_user_name)
             .expect("Failed to read line");
@@ -33,16 +33,16 @@ fn main() {
 
             let mut new_user_password = String::new();
 
-            io::stdout().flush();
+            io::stdout().flush().unwrap();
             io::stdin()
                 .read_line(&mut new_user_password)
                 .expect("Failed to read line");
 
             let mut new_user_password_again = String::new();
-            io::stdout().flush();
+            io::stdout().flush().unwrap();
 
             println!("[ argus ] Please enter your password ----> ");
-            io::stdout().flush();
+            io::stdout().flush().unwrap();
             io::stdin()
                 .read_line(&mut new_user_password_again)
                 .expect("Failed to read line");
@@ -67,7 +67,7 @@ fn main() {
 
         let mut x = String::new();
         print!("----> ",);
-        io::stdout().flush();
+        io::stdout().flush().unwrap();
         io::stdin().read_line(&mut x).expect("Failed to read line");
 
         match x.trim().parse::<i32>().unwrap() {
