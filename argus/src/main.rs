@@ -58,10 +58,39 @@ fn main() {
 
         println!("[ argus ] creating PIN...");
 
+        // create pin here from argus_rand::generate_pin();
+        // store pin, salt, hash for reuse
+
         println!("[ argus ] creating Key....");
 
+        // create x25519 public/private key here
+        // let user_private_key = argus_x25519::generate_keypair();
+
+        // let user_secret = argus_x25519::generate_ephermeral_secret();
+        // let argus_secret = argus_x25519::generate_ephermeral_secret();
+        // let user_public = argus_x25519::generate_public_key(&user_secret);
+        // let argus_public = argus_x25519::generate_public_key(&argus_secret);
+        // let user_shared_secret = user_secret.diffie_hellman(&argus_public);
+        // let argus_shared_secret = argus_secret.diffie_hellman(&user_public);
+
+        // println!("[ argus ] Secure connection verified ....");
+
         println!("----> 1 - Create New Secret");
+
+        // first verify with pin (cant create without correct pin)
+        // create some message - let message: &[u8] = b"This is a test of the tsunami alert system.";
+        // generate keypair for secret - let keypair = argus_ed25519::generate_keypair();
+        // store keypair for secret
+        // sign secret message - let signature = argus_ed25519::generate_signature(&keypair, &message);
+        // store secret with signature
+        // create public key for later use
+        // let public_key = argus_ed25519::generate_public_key(&keypair);
+
         println!("----> 2 - View Current Secrets");
+
+        // first verify with pin (cant create without correct pin)
+        // view specified secret with key -
+
         println!("----> 3 - Add another user for testing");
         println!("----> 4 - Generate New PIN");
         println!("----> 5 - Quit");
