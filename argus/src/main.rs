@@ -28,42 +28,43 @@ fn main() {
             .read_line(&mut new_user_name)
             .expect("Failed to read line");
 
-        loop {
-            println!("[ argus ] Please enter your password ----> ");
+        // loop {
+        //     println!("[ argus ] Please enter your new PIN ----> ");
+        //
+        //     let mut new_user_pin = String::new();
+        //
+        //     io::stdout().flush().unwrap();
+        //     io::stdin()
+        //         .read_line(&mut new_user_pin)
+        //         .expect("Failed to read line");
+        //
+        //     let mut confirm_new_user_pin = String::new();
+        //     io::stdout().flush().unwrap();
+        //
+        //     println!("[ argus ] Please confirm your new PIN ----> ");
+        //     io::stdout().flush().unwrap();
+        //     io::stdin()
+        //         .read_line(&mut confirm_new_user_pin)
+        //         .expect("Failed to read line");
+        //
+        //     if new_user_pin == confirm_new_user_pin {
+        //         println!("good!");
+        //         break;
+        //     } else {
+        //         println!("not good!");
+        //         continue;
+        //     }
+        // }
 
-            let mut new_user_password = String::new();
+        println!("[ argus ] creating PIN...");
 
-            io::stdout().flush().unwrap();
-            io::stdin()
-                .read_line(&mut new_user_password)
-                .expect("Failed to read line");
+        println!("[ argus ] creating Key....");
 
-            let mut new_user_password_again = String::new();
-            io::stdout().flush().unwrap();
-
-            println!("[ argus ] Please enter your password ----> ");
-            io::stdout().flush().unwrap();
-            io::stdin()
-                .read_line(&mut new_user_password_again)
-                .expect("Failed to read line");
-
-            if new_user_password == new_user_password_again {
-                println!("good!");
-                break;
-            } else {
-                println!("not good!");
-                continue;
-            }
-        }
-
-        println!("[ argus ] creating key...");
-
-        println!("[ argus ] creating another key....");
-
-        println!("----> 1 - Create new item");
-        println!("----> 2 - View Current items");
+        println!("----> 1 - Create New Secret");
+        println!("----> 2 - View Current Secrets");
         println!("----> 3 - Add another user for testing");
-        println!("----> 4 - Quit");
+        println!("----> 4 - Generate New PIN");
+        println!("----> 5 - Quit");
 
         let mut x = String::new();
         print!("----> ",);
@@ -74,7 +75,8 @@ fn main() {
             1 => println!("create new user"),
             2 => println!("view current items!"),
             3 => println!("add another user!"),
-            4 => {
+            4 => println!("generate new pin"),
+            5 => {
                 println!("----> Goodbye ...");
                 print!("{}[2J", 27 as char);
                 return;
