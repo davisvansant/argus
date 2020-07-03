@@ -61,10 +61,67 @@ fn main() {
         //     }
         // }
 
+        // let mut passwords_to_hashes: HashMap<&str, &str> = HashMap::new();
+
+        let test_account_number = String::from("account - 12345");
+        let test_account_pin = String::from("pin - 12345");
+        let test_salt = String::from("salt - 12345");
+        let test_hash = String::from("hash - 12345");
+
+        // let test_user: User = User {
+        //     name: new_user_name,
+        //     account_number: (*test_account_number).to_string(),
+        //     pin: (*test_account_pin).to_string(),
+        // };
+
+        let test_user: User = User::new(
+            &new_user_name,
+            &(*test_account_number).to_string(),
+            &(*test_account_pin).to_string(),
+        );
+
+        fn map_the_things(
+            account_number: &str,
+            hash: &str,
+            account_pin: &str,
+            salt: &str,
+        ) -> HashMap<String, String> {
+            let mut link: HashMap<String, String> = HashMap::new();
+            link.insert((&account_number).to_string(), (&hash).to_string());
+            link.insert((&account_pin).to_string(), (&salt).to_string());
+            link
+        }
+
+        let some_awesome_hash = map_the_things(
+            &test_account_number,
+            &test_hash,
+            &test_account_pin,
+            &test_salt,
+        );
+
+        // passwords_to_hashes.insert(&test_account_number, &test_hash);
+        // passwords_to_hashes.insert(&test_account_pin, &test_salt);
+
+        println!("[ argus ] Hello {:?}", test_user.name);
+
+        println!(
+            "[ argus ] Your account number is {:?}",
+            test_user.account_number
+        );
+        println!("{:?}", test_user.account_number);
+
         println!("[ argus ] creating PIN...");
+        println!("{:?}", test_user.pin);
 
         // create pin here from argus_rand::generate_pin();
         // store pin, salt, hash for reuse
+
+        // for (k, v) in &passwords_to_hashes {
+        //     println!("{} {}", k, v);
+        // }
+        for (k, v) in &some_awesome_hash {
+            println!("{} {}", k, v);
+        }
 
         println!("[ argus ] creating Key....");
 
