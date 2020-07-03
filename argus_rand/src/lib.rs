@@ -31,6 +31,12 @@ pub fn generate_pin() -> String {
     pin
 }
 
+pub fn generate_account_number() -> String {
+    let mut random = rand::thread_rng();
+    let account_number: String = random.gen_range(00000000, 99999999).to_string();
+    account_number
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -48,5 +54,12 @@ mod tests {
         // assert!(pin_one.chars().count() == 6);
         // assert!(pin_two.chars().count() == 6);
         assert_ne!(pin_one, pin_two);
+    }
+
+    #[test]
+    fn generate_and_compare_account_numbers() {
+        let account_one = generate_account_number();
+        let account_two = generate_account_number();
+        assert_ne!(account_one, account_two);
     }
 }
