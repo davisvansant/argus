@@ -4,14 +4,19 @@ use std::io::Write;
 
 struct User {
     name: String,
-    id: String,
+    account_number: String,
+    pin: String,
 }
 
 impl User {
-    fn new(name: &str, id: &str) -> User {
+    fn new(name: &str, account_number: &str, pin: &str) -> User {
         User {
+            // this can take user input
             name: name.to_string(),
-            id: id.to_string(),
+            // argus_rand::generate_account_number();
+            account_number: account_number.to_string(),
+            // argus_rand::generate_pin();
+            pin: pin.to_string(),
         }
     }
 }
