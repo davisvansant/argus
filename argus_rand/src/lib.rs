@@ -9,9 +9,7 @@ pub fn generate_salt() -> String {
     ";
 
     let salt_length: usize = 16;
-
     let mut rng = rand::thread_rng();
-
     let salt: String = (0..salt_length)
         .map(|_| {
             let index = rng.gen_range(0, pool.len());
@@ -51,8 +49,6 @@ mod tests {
     fn generate_and_compare_pins() {
         let pin_one = generate_pin();
         let pin_two = generate_pin();
-        // assert!(pin_one.chars().count() == 6);
-        // assert!(pin_two.chars().count() == 6);
         assert_ne!(pin_one, pin_two);
     }
 
