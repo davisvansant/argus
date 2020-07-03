@@ -19,6 +19,18 @@ impl User {
             pin: pin.to_string(),
         }
     }
+
+    fn link(
+        account_number: &str,
+        hash: &str,
+        account_pin: &str,
+        salt: &str,
+    ) -> HashMap<String, String> {
+        let mut link: HashMap<String, String> = HashMap::new();
+        link.insert((&account_number).to_string(), (&hash).to_string());
+        link.insert((&account_pin).to_string(), (&salt).to_string());
+        link
+    }
 }
 
 fn main() {
@@ -80,19 +92,26 @@ fn main() {
             &(*test_account_pin).to_string(),
         );
 
-        fn map_the_things(
-            account_number: &str,
-            hash: &str,
-            account_pin: &str,
-            salt: &str,
-        ) -> HashMap<String, String> {
-            let mut link: HashMap<String, String> = HashMap::new();
-            link.insert((&account_number).to_string(), (&hash).to_string());
-            link.insert((&account_pin).to_string(), (&salt).to_string());
-            link
-        }
+        // fn map_the_things(
+        //     account_number: &str,
+        //     hash: &str,
+        //     account_pin: &str,
+        //     salt: &str,
+        // ) -> HashMap<String, String> {
+        //     let mut link: HashMap<String, String> = HashMap::new();
+        //     link.insert((&account_number).to_string(), (&hash).to_string());
+        //     link.insert((&account_pin).to_string(), (&salt).to_string());
+        //     link
+        // }
 
-        let some_awesome_hash = map_the_things(
+        // let some_awesome_hash = map_the_things(
+        //     &test_account_number,
+        //     &test_hash,
+        //     &test_account_pin,
+        //     &test_salt,
+        // );
+
+        let some_awesome_hash = User::link(
             &test_account_number,
             &test_hash,
             &test_account_pin,
