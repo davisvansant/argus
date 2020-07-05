@@ -2,6 +2,7 @@
 
 members = [
   "argus",
+  "argus_core",
   "argus_rand",
   "argus_sha2",
   "argus_ed25519",
