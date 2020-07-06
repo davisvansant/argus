@@ -1,4 +1,4 @@
-use x25519_dalek::{EphemeralSecret, PublicKey};
+pub use x25519_dalek::{EphemeralSecret, PublicKey};
 
 pub fn generate_ephermeral_secret() -> EphemeralSecret {
     let mut rng = argus_rand::generate_osrng();
