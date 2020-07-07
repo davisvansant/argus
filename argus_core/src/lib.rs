@@ -1,5 +1,5 @@
 pub struct User {
-    account_number: String,
+    pub account_number: String,
     pin: String,
     x25519_secret: argus_x25519::EphemeralSecret,
     salt: String,
