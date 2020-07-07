@@ -1,37 +1,5 @@
-// use std::collections::HashMap;
 use std::io;
 use std::io::Write;
-
-// struct User {
-//     name: String,
-//     account_number: String,
-//     pin: String,
-// }
-//
-// impl User {
-//     fn new(name: &str, account_number: &str, pin: &str) -> User {
-//         User {
-//             // this can take user input
-//             name: name.to_string(),
-//             // argus_rand::generate_account_number();
-//             account_number: account_number.to_string(),
-//             // argus_rand::generate_pin();
-//             pin: pin.to_string(),
-//         }
-//     }
-//
-//     fn link(
-//         account_number: &str,
-//         hash: &str,
-//         account_pin: &str,
-//         salt: &str,
-//     ) -> HashMap<String, String> {
-//         let mut link: HashMap<String, String> = HashMap::new();
-//         link.insert((&account_number).to_string(), (&hash).to_string());
-//         link.insert((&account_pin).to_string(), (&salt).to_string());
-//         link
-//     }
-// }
 
 fn main() {
     loop {
@@ -45,81 +13,9 @@ fn main() {
             .read_line(&mut new_user_name)
             .expect("Failed to read line");
 
-        // loop {
-        //     println!("[ argus ] Please enter your new PIN ----> ");
-        //
-        //     let mut new_user_pin = String::new();
-        //
-        //     io::stdout().flush().unwrap();
-        //     io::stdin()
-        //         .read_line(&mut new_user_pin)
-        //         .expect("Failed to read line");
-        //
-        //     let mut confirm_new_user_pin = String::new();
-        //     io::stdout().flush().unwrap();
-        //
-        //     println!("[ argus ] Please confirm your new PIN ----> ");
-        //     io::stdout().flush().unwrap();
-        //     io::stdin()
-        //         .read_line(&mut confirm_new_user_pin)
-        //         .expect("Failed to read line");
-        //
-        //     if new_user_pin == confirm_new_user_pin {
-        //         println!("good!");
-        //         break;
-        //     } else {
-        //         println!("not good!");
-        //         continue;
-        //     }
-        // }
-
-        // let test_account_number = String::from("account - 12345");
-        // let test_account_pin = String::from("pin - 12345");
-        // let test_salt = String::from("salt - 12345");
-        // let test_hash = String::from("hash - 12345");
-        //
-        // let test_user: User = User::new(
-        //     &new_user_name,
-        //     &(*test_account_number).to_string(),
-        //     &(*test_account_pin).to_string(),
-        // );
-        //
-        // let some_awesome_hash = User::link(
-        //     &test_account_number,
-        //     &test_hash,
-        //     &test_account_pin,
-        //     &test_salt,
-        // );
-
-        // println!("[ argus ] Hello {:?}", test_user.name);
-        //
-        // println!(
-        //     "[ argus ] Your account number is {:?}",
-        //     test_user.account_number
-        // );
-        // println!("{:?}", test_user.account_number);
-
         println!("[ argus ] creating PIN...");
-        // println!("{:?}", test_user.pin);
-
-        // create pin here from argus_rand::generate_pin();
-        // store pin, salt, hash for reuse
-
-        // for (k, v) in &some_awesome_hash {
-        //     println!("{} {}", k, v);
-        // }
 
         println!("[ argus ] creating Key....");
-
-        // create x25519 public/private key here
-        // let user_private_key = argus_x25519::generate_keypair();
-
-        // let user_secret = argus_x25519::generate_ephermeral_secret();
-        // let argus_secret = argus_x25519::generate_ephermeral_secret();
-        // let user_public = argus_x25519::generate_public_key(&user_secret);
-        // let argus_public = argus_x25519::generate_public_key(&argus_secret);
-        // let user_shared_secret = user_secret.diffie_hellman(&argus_public);
-        // let argus_shared_secret = argus_secret.diffie_hellman(&user_public);
 
         // println!("[ argus ] Secure connection verified ....");
 
