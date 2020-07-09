@@ -13,7 +13,7 @@ impl System {
     }
 
     pub fn x25519_public_key(&self) -> argus_x25519::PublicKey {
-        argus_x25519::generate_public_key(&self.x25519_secret)
+        argus_x25519::generate_public_key_from_ephemeral_secret(&self.x25519_secret)
     }
 
     pub fn x25519_shared_secret(
