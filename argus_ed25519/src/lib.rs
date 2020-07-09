@@ -1,4 +1,4 @@
-use ed25519_dalek::{ExpandedSecretKey, Keypair, PublicKey, SecretKey, Signature};
+pub use ed25519_dalek::{ExpandedSecretKey, Keypair, PublicKey, SecretKey, Signature};
 
 pub fn generate_expanded_secret_key() -> ExpandedSecretKey {
     let mut csprng = argus_rand::generate_osrng();
