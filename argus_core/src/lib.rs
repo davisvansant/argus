@@ -3,6 +3,7 @@ pub struct User {
     pin: String,
     x25519_secret: argus_x25519::EphemeralSecret,
     salt: String,
+    ed25519_secret_key: argus_ed25519::ExpandedSecretKey,
 }
 
 impl Default for User {
@@ -18,6 +19,7 @@ impl User {
             pin: argus_rand::generate_pin(),
             x25519_secret: argus_x25519::generate_ephermeral_secret(),
             salt: argus_rand::generate_salt(),
+            ed25519_secret_key: argus_ed25519::generate_expanded_secret_key(),
         }
     }
 
@@ -27,6 +29,10 @@ impl User {
 
     pub fn public_key(&self) -> argus_x25519::PublicKey {
         argus_x25519::generate_public_key(&self.x25519_secret)
+    }
+
+    pub fn ed25519_public_key(&self) -> argus_ed25519::PublicKey {
+        argus_ed25519::generate_public_key_from_secret_key(&self.ed25519_secret_key)
     }
 }
 
@@ -44,8 +50,34 @@ mod tests {
         let test_system_sha = test_system.sha();
         let test_user_public = test_user.public_key();
         let test_system_public = test_system.public_key();
+        let test_user_ed25519_public_key = test_user.ed25519_public_key();
+        let test_system_ed25519_public_key = test_system.ed25519_public_key();
         let test_user_shared_secret = test_user.x25519_secret.diffie_hellman(&test_system_public);
         let test_system_shared_secret = test_system.x25519_secret.diffie_hellman(&test_user_public);
+        let user_message: &[u8] = b"This is a test from user";
+        let system_message: &[u8] = b"This is a test from system";
+        let test_user_signature = argus_ed25519::ExpandedSecretKey::sign(
+            &test_user.ed25519_secret_key,
+            &user_message,
+            &test_user_ed25519_public_key,
+        );
+        let test_system_signature = argus_ed25519::ExpandedSecretKey::sign(
+            &test_system.ed25519_secret_key,
+            &system_message,
+            &test_system_ed25519_public_key,
+        );
+        assert!(argus_ed25519::PublicKey::verify(
+            &test_user_ed25519_public_key,
+            &user_message,
+            &test_user_signature,
+        )
+        .is_ok());
+        assert!(argus_ed25519::PublicKey::verify(
+            &test_system_ed25519_public_key,
+            &system_message,
+            &test_system_signature,
+        )
+        .is_ok());
         assert_ne!(test_user_sha, test_system_sha);
         assert_eq!(
             test_user_shared_secret.as_bytes(),
