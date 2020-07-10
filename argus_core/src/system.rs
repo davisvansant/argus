@@ -27,6 +27,16 @@ impl System {
         let hash_map: HashMap<String, &'static [u8]> = HashMap::new();
         hash_map
     }
+
+    pub fn verify_signature(
+        public_key: &argus_ed25519::PublicKey,
+        message: &[u8],
+        signature: &argus_ed25519::Signature,
+    ) -> Result<(), argus_ed25519::SignatureError> {
+        Ok(argus_ed25519::PublicKey::verify(
+            public_key, message, signature,
+        )?)
+    }
 }
 
 #[cfg(test)]
