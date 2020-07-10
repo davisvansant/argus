@@ -77,13 +77,13 @@ mod tests {
         let test_user_signature = test_user.sign(&user_message, test_user_ed25519_public_key);
         let test_system_signature =
             test_system.sign(&system_message, test_system_ed25519_public_key);
-        assert!(argus_ed25519::PublicKey::verify(
+        assert!(system::System::verify_signature(
             &test_user_ed25519_public_key,
             &user_message,
             &test_user_signature,
         )
         .is_ok());
-        assert!(argus_ed25519::PublicKey::verify(
+        assert!(system::System::verify_signature(
             &test_system_ed25519_public_key,
             &system_message,
             &test_system_signature,
