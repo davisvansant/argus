@@ -41,11 +41,10 @@ impl System {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::User;
     #[test]
     fn create_and_verify_system() {
         let test_system: System = System::init();
-        let test_user: User = User::new();
+        let test_user: crate::user::User = crate::user::User::new();
         let test_system_public = test_system.x25519_public_key();
         let test_user_public = test_user.public_key();
         let test_user_secrets = System::secrets();
