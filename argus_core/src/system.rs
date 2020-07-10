@@ -1,19 +1,18 @@
 use std::collections::HashMap;
 
 pub struct System {
-    // probably needs to change to some static secret
-    x25519_secret: argus_x25519::EphemeralSecret,
+    x25519_secret: argus_x25519::StaticSecret,
 }
 
 impl System {
     pub fn init() -> Self {
         Self {
-            x25519_secret: argus_x25519::generate_ephermeral_secret(),
+            x25519_secret: argus_x25519::generate_static_secret(),
         }
     }
 
     pub fn x25519_public_key(&self) -> argus_x25519::PublicKey {
-        argus_x25519::generate_public_key_from_ephemeral_secret(&self.x25519_secret)
+        argus_x25519::generate_public_key_from_static_secret(&self.x25519_secret)
     }
 
     pub fn x25519_shared_secret(
@@ -51,7 +50,7 @@ mod tests {
         let test_user_public = test_user.public_key();
         let test_user_secrets = System::secrets();
         let test_system_shared_secret = test_system.x25519_shared_secret(&test_user_public);
-        let test_user_shared_secret = test_user.x25519_secret.diffie_hellman(&test_system_public);
+        let test_user_shared_secret = test_user.x25519_shared_secret(&test_system_public);
         assert_eq!(
             test_user_shared_secret.as_bytes(),
             test_system_shared_secret.as_bytes()
