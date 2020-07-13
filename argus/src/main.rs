@@ -39,7 +39,7 @@ fn main() {
                 let test_user_shared_secret =
                     new_user.x25519_shared_secret(&system_x25519_public_key);
                 println!("{:?}", new_user.account_number);
-                // println!("{:?}", new_user.pin);
+                new_user.print_pin();
                 println!("{:?}", new_user_sha);
                 println!("{:?}", new_user_public_key.as_bytes());
                 println!("{:?}", new_user_ed25519_public_key.as_bytes());

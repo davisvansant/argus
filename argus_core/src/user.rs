@@ -49,6 +49,10 @@ impl User {
     ) -> argus_ed25519::Signature {
         argus_ed25519::ExpandedSecretKey::sign(&self.ed25519_secret_key, &message, &public_key)
     }
+
+    pub fn print_pin(&self) {
+        println!("PIN for account - {:?}", self.pin);
+    }
 }
 
 #[cfg(test)]
