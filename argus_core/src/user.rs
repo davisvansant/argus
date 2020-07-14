@@ -1,9 +1,12 @@
+use std::collections::HashMap;
+
 pub struct User {
     pub account_number: String,
     pin: String,
     x25519_secret: argus_x25519::StaticSecret,
     salt: String,
     ed25519_secret_key: argus_ed25519::ExpandedSecretKey,
+    secrets: HashMap<String, &'static [u8]>,
 }
 
 impl Default for User {
@@ -20,6 +23,7 @@ impl User {
             x25519_secret: argus_x25519::generate_static_secret(),
             salt: argus_rand::generate_salt(),
             ed25519_secret_key: argus_ed25519::generate_expanded_secret_key(),
+            secrets: HashMap::new(),
         }
     }
 
@@ -52,6 +56,10 @@ impl User {
 
     pub fn print_pin(&self) {
         println!("PIN for account - {:?}", self.pin);
+    }
+
+    pub fn print_secrets(&self) {
+        println!("Secrets for account - {:?}", self.secrets);
     }
 }
 
