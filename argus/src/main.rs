@@ -43,6 +43,15 @@ fn main() {
                 println!("{:?}", new_user_sha);
                 println!("{:?}", new_user_public_key.as_bytes());
                 println!("{:?}", new_user_ed25519_public_key.as_bytes());
+                new_user.print_secrets();
+
+                let info = argus_core::system::System::capture_account_information(
+                    new_user,
+                    new_user_sha,
+                    new_user_public_key,
+                    new_user_ed25519_public_key,
+                );
+
                 thread::sleep_ms(10000);
             }
             2 => {
