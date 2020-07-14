@@ -1,4 +1,13 @@
+use crate::user::User;
 use std::collections::HashMap;
+
+pub enum AccountInfo {
+    User(User),
+    Sha(String),
+    X25519PublicKey(argus_x25519::PublicKey),
+    Ed25519PublicKey(argus_ed25519::PublicKey),
+    SharedSecret(String),
+}
 
 pub struct System {
     x25519_secret: argus_x25519::StaticSecret,
@@ -35,6 +44,29 @@ impl System {
         Ok(argus_ed25519::PublicKey::verify(
             public_key, message, signature,
         )?)
+    }
+
+    pub fn capture_account_information(
+        user: User,
+        sha: String,
+        public_key: argus_x25519::PublicKey,
+        ed25519_public_key: argus_ed25519::PublicKey,
+    ) -> HashMap<String, AccountInfo> {
+        let mut account_information: HashMap<String, AccountInfo> = HashMap::new();
+        account_information.insert(
+            String::from("Account"),
+            AccountInfo::Sha(user.account_number),
+        );
+        account_information.insert(String::from("sha"), AccountInfo::Sha(sha));
+        account_information.insert(
+            String::from("x25519_public_key"),
+            AccountInfo::X25519PublicKey(public_key),
+        );
+        account_information.insert(
+            String::from("ed25519_public_key"),
+            AccountInfo::Ed25519PublicKey(ed25519_public_key),
+        );
+        account_information
     }
 }
 
