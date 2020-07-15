@@ -5,7 +5,8 @@ pub struct System {
     x25519_secret: argus_x25519::StaticSecret,
     // accounts: Vec<String>,
     private_account_information: HashMap<String, User>,
-    public_account_information: HashMap<String, HashMap<String, crate::user::AccountInformation>>,
+    pub public_account_information:
+        HashMap<String, HashMap<String, crate::user::AccountInformation>>,
 }
 
 impl System {

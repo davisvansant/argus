@@ -5,13 +5,14 @@ use std::{thread, time};
 fn main() {
     let mut system = argus_core::system::System::init();
     let system_x25519_public_key = system.x25519_public_key();
-    
+
     loop {
         print!("{}[2J", 27 as char);
         println!("Welcome to Argus");
         println!("----> 1 - Create New User");
-        println!("----> 2 - Login with ID and PIN");
-        println!("----> 3 - Quit");
+        println!("----> 2 - View Users");
+        println!("----> 3 - Login with ID and PIN");
+        println!("----> 4 - Quit");
 
         let mut x = String::new();
         print!("----> ",);
@@ -42,6 +43,24 @@ fn main() {
                 thread::sleep_ms(10000);
             }
             2 => {
+                println!("view users");
+
+                for k in system.public_account_information.keys() {
+                    println!("{}", k);
+                }
+
+                for value in system.public_account_information.values() {
+                    let sha = value.get(&String::from("sha"));
+                    println!("{:?}", sha);
+                    let x25519_public_key = value.get(&String::from("x25519_public_key"));
+                    println!("{:?}", x25519_public_key);
+                    let ed25519_public_key = value.get(&String::from("ed25519_public_key"));
+                    println!("{:?}", ed25519_public_key);
+                }
+
+                thread::sleep_ms(10000);
+            }
+            3 => {
                 print!("{}[2J", 27 as char);
                 println!("login with id and pin");
                 loop {
@@ -72,7 +91,7 @@ fn main() {
                     }
                 }
             }
-            3 => {
+            4 => {
                 println!("----> Goodbye ...");
                 print!("{}[2J", 27 as char);
                 return;
