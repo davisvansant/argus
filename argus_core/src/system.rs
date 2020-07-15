@@ -63,6 +63,29 @@ impl System {
         self.public_account_information
             .insert(user_account_number.to_string(), stuff);
     }
+
+    pub fn load_private_account_information(&mut self, account_id: &String) -> &mut User {
+        let user_account_number = account_id;
+        self.private_account_information
+            .get_mut(user_account_number)
+            .expect("not found") //panics on error...will need to fix later
+    }
+
+    pub fn load_public_account_information(&mut self, account_id: &String) {
+        let user_account_number = account_id;
+        let _user_public_information: HashMap<String, crate::user::AccountInformation> =
+            HashMap::new();
+        let mut data = self
+            .public_account_information
+            .get_mut(user_account_number)
+            .expect("not found"); //panics on error...will need to fix later
+        let sha = &data.get_mut(&String::from("sha"));
+        let x25519_public_key = &data.get_mut(&String::from("x25519_public_key"));
+        let ed25519_public_key = &data.get_mut(&String::from("ed25519_public_key"));
+        // println!("{:?}", sha);
+        // println!("{:?}", x25519_public_key);
+        // println!("{:?}", ed25519_public_key);
+    }
 }
 
 #[cfg(test)]
