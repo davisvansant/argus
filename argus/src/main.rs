@@ -63,8 +63,40 @@ fn main() {
             3 => {
                 print!("{}[2J", 27 as char);
                 println!("login with id and pin");
+
+                let mut account_to_use = String::new();
+
+                println!("[ argus ] Please enter account id ----> ",);
+                io::stdout().flush().unwrap();
+                io::stdin()
+                    .read_line(&mut account_to_use)
+                    .expect("Failed to read line");
+
+                let len = &account_to_use.len();
+                &account_to_use.truncate(len - 1);
+
+                println!("{}", &account_to_use);
+                println!("{:?}", &account_to_use.len());
+                assert!(&account_to_use.contains(&account_to_use));
+
+                let current_user_private_information =
+                    system.load_private_account_information(&account_to_use);
+                let current_user_public_information =
+                    system.load_public_account_information(&account_to_use);
+                // println!("{:?}", current_user_private_information.account_number);
+
+                // for key in system.public_account_information.keys() {
+                //     if key.contains(&account_to_use) {
+                //         println!("yes!");
+                //         let load_user = system.private_account_information.get(&account_to_use).unwrap();
+                //         println!("ready to load - {:?}", load_user.pin);
+                //     } else {
+                //         println!("no", );
+                //     }
+                // }
+
                 loop {
-                    println!("Welcome username");
+                    println!("Welcome");
 
                     println!("----> 1 - Create New Secret");
                     println!("----> 2 - View current secrets");
