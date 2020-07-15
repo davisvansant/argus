@@ -3,9 +3,9 @@ use std::io::Write;
 use std::{thread, time};
 
 fn main() {
-    let system = argus_core::system::System::init();
+    let mut system = argus_core::system::System::init();
     let system_x25519_public_key = system.x25519_public_key();
-
+    
     loop {
         print!("{}[2J", 27 as char);
         println!("Welcome to Argus");
@@ -29,28 +29,15 @@ fn main() {
                     .read_line(&mut new_user_name)
                     .expect("Failed to read line");
 
-                let new_user = argus_core::user::User::new();
-                println!("[ argus ] creating PIN...");
-                let new_user_sha = new_user.sha();
-                println!("[ argus ] creating Keys....");
-                let new_user_public_key = new_user.public_key();
-                let new_user_ed25519_public_key = new_user.ed25519_public_key();
-                println!("[ argus ] Secure connection verified ....");
-                let test_user_shared_secret =
-                    new_user.x25519_shared_secret(&system_x25519_public_key);
-                println!("{:?}", new_user.account_number);
-                new_user.print_pin();
-                println!("{:?}", new_user_sha);
-                println!("{:?}", new_user_public_key.as_bytes());
-                println!("{:?}", new_user_ed25519_public_key.as_bytes());
-                new_user.print_secrets();
+                let new_user_private_information = argus_core::user::User::new();
+                let new_user_public_information =
+                    argus_core::user::User::generate(&new_user_private_information);
 
-                let info = argus_core::system::System::capture_account_information(
-                    new_user,
-                    new_user_sha,
-                    new_user_public_key,
-                    new_user_ed25519_public_key,
+                system.save_public_account_information(
+                    &new_user_private_information,
+                    new_user_public_information,
                 );
+                system.save_private_account_information(new_user_private_information);
 
                 thread::sleep_ms(10000);
             }
