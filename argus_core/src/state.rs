@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-struct State {
+pub struct State {
     account_salt_and_sha: HashMap<String, HashMap<String, String>>,
     account_secrets: HashMap<String, HashMap<String, &'static [u8]>>,
 }
