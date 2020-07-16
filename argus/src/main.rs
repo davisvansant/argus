@@ -83,29 +83,29 @@ fn main() {
 
                 let current_user_private_information =
                     system.load_private_account_information(&account_to_use);
-                // let current_user_public_information =
-                //     system.load_public_account_information(&account_to_use);
-                // println!("{:?}", current_user_private_information.account_number);
-
-                // for key in system.public_account_information.keys() {
-                //     if key.contains(&account_to_use) {
-                //         println!("yes!");
-                //         let load_user = system.private_account_information.get(&account_to_use).unwrap();
-                //         println!("ready to load - {:?}", load_user.pin);
-                //     } else {
-                //         println!("no", );
-                //     }
-                // }
 
                 let x25519_public_key = current_user_private_information.public_key();
                 println!("{:?}", x25519_public_key);
                 let ed25519_public_key = current_user_private_information.ed25519_public_key();
                 println!("{:?}", ed25519_public_key);
-                let current_user_shared_secret = current_user_private_information
-                    .x25519_shared_secret(&system_x25519_public_key);
+
+                let ephemeral_system = argus_core::system::System::init();
+                let ephemeral_system_x25519_public_key = &ephemeral_system.x25519_public_key();
+                let ephemeral_system_shared_secret =
+                    &ephemeral_system.x25519_shared_secret(&x25519_public_key);
+                let current_user_shared_secret = &current_user_private_information
+                    .x25519_shared_secret(&ephemeral_system_x25519_public_key);
                 println!("{:?}", current_user_shared_secret.as_bytes());
-                let system_shared_secret = system.x25519_shared_secret(&x25519_public_key);
-                println!("{:?}", &system_shared_secret.as_bytes());
+                println!("{:?}", ephemeral_system_shared_secret.as_bytes());
+                if current_user_shared_secret.as_bytes()
+                    == ephemeral_system_shared_secret.as_bytes()
+                {
+                    println!("secure connection established");
+                } else {
+                    println!("please try again...",);
+                    thread::sleep_ms(10000);
+                    continue;
+                }
 
                 loop {
                     println!("Welcome");
