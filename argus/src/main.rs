@@ -4,6 +4,7 @@ use std::{thread, time};
 
 fn main() {
     let mut system = argus_core::system::System::init();
+    let mut state = argus_core::state::State::init();
 
     loop {
         print!("{}[2J", 27 as char);
