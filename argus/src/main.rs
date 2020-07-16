@@ -4,7 +4,6 @@ use std::{thread, time};
 
 fn main() {
     let mut system = argus_core::system::System::init();
-    let system_x25519_public_key = system.x25519_public_key();
 
     loop {
         print!("{}[2J", 27 as char);
@@ -73,16 +72,18 @@ fn main() {
                     .expect("Failed to read line");
 
                 let len = &account_to_use.len();
-                &account_to_use.truncate(len - 1);
+                account_to_use.truncate(len - 1);
 
                 println!("{}", &account_to_use);
                 println!("{:?}", &account_to_use.len());
                 assert!(&account_to_use.contains(&account_to_use));
 
+                let system_x25519_public_key = system.x25519_public_key();
+
                 let current_user_private_information =
                     system.load_private_account_information(&account_to_use);
-                let current_user_public_information =
-                    system.load_public_account_information(&account_to_use);
+                // let current_user_public_information =
+                //     system.load_public_account_information(&account_to_use);
                 // println!("{:?}", current_user_private_information.account_number);
 
                 // for key in system.public_account_information.keys() {
@@ -94,6 +95,16 @@ fn main() {
                 //         println!("no", );
                 //     }
                 // }
+
+                let x25519_public_key = current_user_private_information.public_key();
+                println!("{:?}", x25519_public_key);
+                let ed25519_public_key = current_user_private_information.ed25519_public_key();
+                println!("{:?}", ed25519_public_key);
+                let current_user_shared_secret = current_user_private_information
+                    .x25519_shared_secret(&system_x25519_public_key);
+                println!("{:?}", current_user_shared_secret.as_bytes());
+                let system_shared_secret = system.x25519_shared_secret(&x25519_public_key);
+                println!("{:?}", &system_shared_secret.as_bytes());
 
                 loop {
                     println!("Welcome");
