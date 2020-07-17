@@ -21,42 +21,62 @@ fn main() {
 
         match x.trim().parse::<i32>().unwrap() {
             1 => {
-                println!("create new user");
-                let mut new_user_name = String::new();
+                // println!("create new user");
+                // let mut new_user_name = String::new();
+                //
+                // println!("[ argus ] Please enter your name ----> ",);
+                // io::stdout().flush().unwrap();
+                // io::stdin()
+                //     .read_line(&mut new_user_name)
+                //     .expect("Failed to read line");
 
-                println!("[ argus ] Please enter your name ----> ",);
-                io::stdout().flush().unwrap();
-                io::stdin()
-                    .read_line(&mut new_user_name)
-                    .expect("Failed to read line");
+                let new_account = argus_core::account::Account::generate();
+                // println!("{:?}", new_account.id);
+                // println!("{:?}", new_account.sha);
+                // let new_account_id = new_account.id;
+                let new_account_information = new_account.information();
+                state.save_account_information(&new_account, new_account_information);
 
-                let new_user_private_information = argus_core::user::User::new();
-                let new_user_public_information =
-                    argus_core::user::User::generate(&new_user_private_information);
-
-                system.save_public_account_information(
-                    &new_user_private_information,
-                    new_user_public_information,
-                );
-                system.save_private_account_information(new_user_private_information);
+                // let new_user_private_information = argus_core::user::User::new();
+                // let new_user_public_information =
+                //     argus_core::user::User::generate(&new_user_private_information);
+                //
+                // system.save_public_account_information(
+                //     &new_user_private_information,
+                //     new_user_public_information,
+                // );
+                // system.save_private_account_information(new_user_private_information);
 
                 thread::sleep_ms(10000);
             }
             2 => {
                 println!("view users");
 
-                for k in system.public_account_information.keys() {
-                    println!("{}", k);
+                for k in state.account_salt_and_sha.keys() {
+                    println!("{:?}", k);
                 }
 
-                for value in system.public_account_information.values() {
-                    let sha = value.get(&String::from("sha"));
-                    println!("{:?}", sha);
-                    let x25519_public_key = value.get(&String::from("x25519_public_key"));
-                    println!("{:?}", x25519_public_key);
-                    let ed25519_public_key = value.get(&String::from("ed25519_public_key"));
-                    println!("{:?}", ed25519_public_key);
-                }
+                // for value in system.public_account_information.values() {
+                //     let sha = value.get(&String::from("sha"));
+                //     println!("{:?}", sha);
+                //     let x25519_public_key = value.get(&String::from("x25519_public_key"));
+                //     println!("{:?}", x25519_public_key);
+                //     let ed25519_public_key = value.get(&String::from("ed25519_public_key"));
+                //     println!("{:?}", ed25519_public_key);
+                // }
+                //
+                // for k in system.public_account_information.keys() {
+                //     println!("{}", k);
+                // }
+                //
+                // for value in system.public_account_information.values() {
+                //     let sha = value.get(&String::from("sha"));
+                //     println!("{:?}", sha);
+                //     let x25519_public_key = value.get(&String::from("x25519_public_key"));
+                //     println!("{:?}", x25519_public_key);
+                //     let ed25519_public_key = value.get(&String::from("ed25519_public_key"));
+                //     println!("{:?}", ed25519_public_key);
+                // }
 
                 thread::sleep_ms(10000);
             }
