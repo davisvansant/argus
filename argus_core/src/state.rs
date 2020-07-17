@@ -1,7 +1,8 @@
+use crate::account::Account;
 use std::collections::HashMap;
 
 pub struct State {
-    account_salt_and_sha: HashMap<String, HashMap<String, String>>,
+    pub account_salt_and_sha: HashMap<String, HashMap<String, String>>,
     account_secrets: HashMap<String, HashMap<String, &'static [u8]>>,
 }
 
@@ -11,6 +12,15 @@ impl State {
             account_salt_and_sha: HashMap::new(),
             account_secrets: HashMap::new(),
         }
+    }
+
+    pub fn save_account_information(
+        &mut self,
+        account: &Account,
+        account_information: HashMap<String, String>,
+    ) {
+        self.account_salt_and_sha
+            .insert(account.id.to_string(), account_information);
     }
 }
 
