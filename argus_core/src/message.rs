@@ -29,7 +29,7 @@ mod tests {
     fn create_and_verify_message() {
         let test_message: Message = Message::prepare();
         let test_message_ed25519_public_key = test_message.ed25519_public_key();
-        let test_message_contents: &[u8] = b"This is a test from user";
+        let test_message_contents: &[u8] = b"This is a test message";
         let test_message_signature =
             test_message.sign(&test_message_contents, test_message_ed25519_public_key);
         assert!(test_message_ed25519_public_key
