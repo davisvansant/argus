@@ -3,7 +3,6 @@ use std::io::Write;
 use std::{thread, time};
 
 fn main() {
-    let mut system = argus_core::system::System::init();
     let mut state = argus_core::state::State::init();
 
     loop {
@@ -31,21 +30,9 @@ fn main() {
                 //     .expect("Failed to read line");
 
                 let new_account = argus_core::account::Account::generate();
-                // println!("{:?}", new_account.id);
-                // println!("{:?}", new_account.sha);
-                // let new_account_id = new_account.id;
                 let new_account_information = new_account.information();
-                state.save_account_information(&new_account, new_account_information);
 
-                // let new_user_private_information = argus_core::user::User::new();
-                // let new_user_public_information =
-                //     argus_core::user::User::generate(&new_user_private_information);
-                //
-                // system.save_public_account_information(
-                //     &new_user_private_information,
-                //     new_user_public_information,
-                // );
-                // system.save_private_account_information(new_user_private_information);
+                state.save_account_information(&new_account, new_account_information);
 
                 thread::sleep_ms(10000);
             }
@@ -95,31 +82,16 @@ fn main() {
                 let len = &account_to_use.len();
                 account_to_use.truncate(len - 1);
 
-                println!("{}", &account_to_use);
-                println!("{:?}", &account_to_use.len());
-                assert!(&account_to_use.contains(&account_to_use));
-
+                let mut user = state.load_account_information(&account_to_use);
+                let user_session = argus_core::session::Session::init();
+                let system = argus_core::session::Session::init();
+                let user_x25519_public_key = user_session.x25519_public_key();
                 let system_x25519_public_key = system.x25519_public_key();
+                let user_shared_secret =
+                    user_session.x25519_shared_secret(&system_x25519_public_key);
+                let system_shared_secret = system.x25519_shared_secret(&user_x25519_public_key);
 
-                let current_user_private_information =
-                    system.load_private_account_information(&account_to_use);
-
-                let x25519_public_key = current_user_private_information.public_key();
-                println!("{:?}", x25519_public_key);
-                let ed25519_public_key = current_user_private_information.ed25519_public_key();
-                println!("{:?}", ed25519_public_key);
-
-                let ephemeral_system = argus_core::system::System::init();
-                let ephemeral_system_x25519_public_key = &ephemeral_system.x25519_public_key();
-                let ephemeral_system_shared_secret =
-                    &ephemeral_system.x25519_shared_secret(&x25519_public_key);
-                let current_user_shared_secret = &current_user_private_information
-                    .x25519_shared_secret(&ephemeral_system_x25519_public_key);
-                println!("{:?}", current_user_shared_secret.as_bytes());
-                println!("{:?}", ephemeral_system_shared_secret.as_bytes());
-                if current_user_shared_secret.as_bytes()
-                    == ephemeral_system_shared_secret.as_bytes()
-                {
+                if user_shared_secret.as_bytes() == system_shared_secret.as_bytes() {
                     println!("secure connection established");
                 } else {
                     println!("please try again...",);
