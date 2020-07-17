@@ -20,14 +20,7 @@ fn main() {
 
         match x.trim().parse::<i32>().unwrap() {
             1 => {
-                // println!("create new user");
-                // let mut new_user_name = String::new();
-                //
-                // println!("[ argus ] Please enter your name ----> ",);
-                // io::stdout().flush().unwrap();
-                // io::stdin()
-                //     .read_line(&mut new_user_name)
-                //     .expect("Failed to read line");
+                print!("{}[2J", 27 as char);
 
                 let new_account = argus_core::account::Account::generate();
                 let new_account_information = new_account.information();
@@ -79,12 +72,38 @@ fn main() {
                     .read_line(&mut account_to_use)
                     .expect("Failed to read line");
 
+                print!("{}[2J", 27 as char);
+
                 let len = &account_to_use.len();
                 account_to_use.truncate(len - 1);
 
+                let mut pin_to_use = String::new();
+
+                println!("[ argus ] Please enter account PIN ----> ",);
+                io::stdout().flush().unwrap();
+                io::stdin()
+                    .read_line(&mut pin_to_use)
+                    .expect("Failed to read line");
+
+                print!("{}[2J", 27 as char);
+
+                let len = &pin_to_use.len();
+                pin_to_use.truncate(len - 1);
+
+                if state.verify_pin(&account_to_use, &pin_to_use) {
+                    println!("[ argus ] Access granted!");
+                } else {
+                    println!("Access Denied!");
+                    thread::sleep_ms(10000);
+                    continue;
+                }
+
+                println!("[ argus ] Loading Account information ...");
                 let mut user = state.load_account_information(&account_to_use);
+                println!("[ argus ] Initializing Session...",);
                 let user_session = argus_core::session::Session::init();
                 let system = argus_core::session::Session::init();
+                println!("[ argus ] Creating secure keys for session ...",);
                 let user_x25519_public_key = user_session.x25519_public_key();
                 let system_x25519_public_key = system.x25519_public_key();
                 let user_shared_secret =
@@ -92,7 +111,8 @@ fn main() {
                 let system_shared_secret = system.x25519_shared_secret(&user_x25519_public_key);
 
                 if user_shared_secret.as_bytes() == system_shared_secret.as_bytes() {
-                    println!("secure connection established");
+                    println!("[ argus ] Secure Connection Established ...");
+                    thread::sleep_ms(10000);
                 } else {
                     println!("please try again...",);
                     thread::sleep_ms(10000);
@@ -100,7 +120,8 @@ fn main() {
                 }
 
                 loop {
-                    println!("Welcome");
+                    print!("{}[2J", 27 as char);
+                    println!("[ argus] Welcome - {}", account_to_use);
 
                     println!("----> 1 - Create New Secret");
                     println!("----> 2 - View current secrets");
