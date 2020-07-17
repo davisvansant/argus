@@ -17,8 +17,8 @@ impl Account {
         let sha = argus_sha2::digest_512::build_object(&pin, &salt);
         let mut account_information: HashMap<String, String> = HashMap::new();
 
-        println!("Account number - {:?}", self.id);
-        println!("PIN for account - {:?}", pin);
+        println!("[ argus ] Account number - {}", self.id);
+        println!("[ argus ] PIN for account - {}", pin);
 
         account_information.insert(String::from("salt"), salt);
         account_information.insert(String::from("sha"), sha);
