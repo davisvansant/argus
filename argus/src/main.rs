@@ -24,8 +24,10 @@ fn main() {
 
                 let new_account = argus_core::account::Account::generate();
                 let new_account_information = new_account.information();
+                let new_account_secrets = new_account.secrets();
 
                 state.save_account_information(&new_account, new_account_information);
+                state.save_account_secrets(&new_account, new_account_secrets);
 
                 thread::sleep_ms(10000);
             }
@@ -100,7 +102,8 @@ fn main() {
 
                 println!("[ argus ] Loading Account information ...");
                 let mut user = state.load_account_information(&account_to_use);
-                println!("[ argus ] Initializing Session...",);
+                let secrets = state.load_account_secrets(&account_to_use);
+                println!("[ argus ] Initializing Session ...",);
                 let user_session = argus_core::session::Session::init();
                 let system = argus_core::session::Session::init();
                 println!("[ argus ] Creating secure keys for session ...",);
@@ -127,21 +130,32 @@ fn main() {
                     println!("----> 2 - View current secrets");
                     println!("----> 3 - Logout");
 
-                    let mut x = String::new();
+                    let mut secrets_options = String::new();
                     print!("----> ",);
                     io::stdout().flush().unwrap();
-                    io::stdin().read_line(&mut x).expect("Failed to read line");
+                    io::stdin()
+                        .read_line(&mut secrets_options)
+                        .expect("Failed to read line");
 
-                    match x.trim().parse::<i32>().unwrap() {
+                    match secrets_options.trim().parse::<i32>().unwrap() {
                         1 => {
                             println!("create new secrets",);
+                            thread::sleep_ms(10000);
+                            // state.save_account_secrets(&account_to_use, secrets);
                         }
                         2 => {
                             println!("view current secrets",);
+                            for (k, v) in secrets.iter() {
+                                println!("Name - {:?}", k);
+                                println!("Content - {:?}", v);
+                            }
+                            thread::sleep_ms(10000);
                         }
                         3 => {
-                            println!("----> Goodbye ...");
                             print!("{}[2J", 27 as char);
+                            println!("[ argus ] Goodbye ...");
+                            thread::sleep_ms(10000);
+
                             break;
                         }
                         _ => continue,
