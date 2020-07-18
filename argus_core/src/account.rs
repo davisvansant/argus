@@ -25,4 +25,9 @@ impl Account {
 
         account_information
     }
+
+    pub fn secrets(&self) -> HashMap<String, String> {
+        let secrets: HashMap<String, String> = HashMap::new();
+        secrets
+    }
 }
