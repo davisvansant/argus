@@ -3,7 +3,7 @@ use std::collections::HashMap;
 
 pub struct State {
     pub account_salt_and_sha: HashMap<String, HashMap<String, String>>,
-    account_secrets: HashMap<String, HashMap<String, &'static [u8]>>,
+    account_secrets: HashMap<String, HashMap<String, String>>,
 }
 
 impl State {
@@ -46,6 +46,14 @@ impl State {
         } else {
             false
         }
+    }
+
+    pub fn save_account_secrets(&mut self, account: &Account, secrets: HashMap<String, String>) {
+        self.account_secrets.insert(account.id.to_string(), secrets);
+    }
+
+    pub fn load_account_secrets(&mut self, account: &str) -> &mut HashMap<String, String> {
+        self.account_secrets.get_mut(&account.to_string()).unwrap()
     }
 }
 
