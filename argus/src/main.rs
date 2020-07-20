@@ -1,7 +1,7 @@
 use std::io;
 use std::io::Write;
+use std::thread;
 use std::time::Duration;
-use std::{thread, time};
 
 fn main() {
     let mut state = argus_core::state::State::init();
