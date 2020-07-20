@@ -40,27 +40,6 @@ fn main() {
                     println!("{:?}", k);
                 }
 
-                // for value in system.public_account_information.values() {
-                //     let sha = value.get(&String::from("sha"));
-                //     println!("{:?}", sha);
-                //     let x25519_public_key = value.get(&String::from("x25519_public_key"));
-                //     println!("{:?}", x25519_public_key);
-                //     let ed25519_public_key = value.get(&String::from("ed25519_public_key"));
-                //     println!("{:?}", ed25519_public_key);
-                // }
-                //
-                // for k in system.public_account_information.keys() {
-                //     println!("{}", k);
-                // }
-                //
-                // for value in system.public_account_information.values() {
-                //     let sha = value.get(&String::from("sha"));
-                //     println!("{:?}", sha);
-                //     let x25519_public_key = value.get(&String::from("x25519_public_key"));
-                //     println!("{:?}", x25519_public_key);
-                //     let ed25519_public_key = value.get(&String::from("ed25519_public_key"));
-                //     println!("{:?}", ed25519_public_key);
-                // }
                 let duration = Duration::new(5, 0);
                 thread::sleep(duration);
             }
