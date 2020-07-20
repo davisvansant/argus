@@ -41,11 +41,12 @@ impl State {
         let current_salt = &account_information.get(&String::from("salt")).unwrap();
         let current_sha = &account_information.get(&String::from("sha")).unwrap();
         let computed_sha = argus_sha2::digest_512::build_object(&pin.to_string(), current_salt);
-        if current_sha.to_string() == computed_sha.to_string() {
-            true
-        } else {
-            false
-        }
+        // if current_sha.to_string() == computed_sha.to_string() {
+        //     true
+        // } else {
+        //     false
+        // }
+        *current_sha.to_string() == computed_sha
     }
 
     pub fn save_account_secrets(&mut self, account: &Account, secrets: HashMap<String, String>) {
