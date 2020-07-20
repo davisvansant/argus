@@ -1,5 +1,6 @@
 use std::io;
 use std::io::Write;
+use std::time::Duration;
 use std::{thread, time};
 
 fn main() {
@@ -29,7 +30,8 @@ fn main() {
                 state.save_account_information(&new_account, new_account_information);
                 state.save_account_secrets(&new_account, new_account_secrets);
 
-                thread::sleep_ms(10000);
+                let duration = Duration::new(5, 0);
+                thread::sleep(duration);
             }
             2 => {
                 println!("view users");
@@ -59,8 +61,8 @@ fn main() {
                 //     let ed25519_public_key = value.get(&String::from("ed25519_public_key"));
                 //     println!("{:?}", ed25519_public_key);
                 // }
-
-                thread::sleep_ms(10000);
+                let duration = Duration::new(5, 0);
+                thread::sleep(duration);
             }
             3 => {
                 print!("{}[2J", 27 as char);
@@ -96,7 +98,8 @@ fn main() {
                     println!("[ argus ] Access granted!");
                 } else {
                     println!("Access Denied!");
-                    thread::sleep_ms(10000);
+                    let duration = Duration::new(5, 0);
+                    thread::sleep(duration);
                     continue;
                 }
 
@@ -115,10 +118,12 @@ fn main() {
 
                 if user_shared_secret.as_bytes() == system_shared_secret.as_bytes() {
                     println!("[ argus ] Secure Connection Established ...");
-                    thread::sleep_ms(10000);
+                    let duration = Duration::new(5, 0);
+                    thread::sleep(duration);
                 } else {
                     println!("please try again...",);
-                    thread::sleep_ms(10000);
+                    let duration = Duration::new(5, 0);
+                    thread::sleep(duration);
                     continue;
                 }
 
@@ -140,7 +145,8 @@ fn main() {
                     match secrets_options.trim().parse::<i32>().unwrap() {
                         1 => {
                             println!("create new secrets",);
-                            thread::sleep_ms(10000);
+                            let duration = Duration::new(5, 0);
+                            thread::sleep(duration);
                             // state.save_account_secrets(&account_to_use, secrets);
                         }
                         2 => {
@@ -149,12 +155,14 @@ fn main() {
                                 println!("Name - {:?}", k);
                                 println!("Content - {:?}", v);
                             }
-                            thread::sleep_ms(10000);
+                            let duration = Duration::new(5, 0);
+                            thread::sleep(duration);
                         }
                         3 => {
                             print!("{}[2J", 27 as char);
                             println!("[ argus ] Goodbye ...");
-                            thread::sleep_ms(10000);
+                            let duration = Duration::new(5, 0);
+                            thread::sleep(duration);
 
                             break;
                         }
