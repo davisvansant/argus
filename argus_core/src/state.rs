@@ -66,14 +66,12 @@ impl State {
         message: &[u8],
         signature: argus_ed25519::Signature,
     ) {
-        // unimplemented!("coming soon");
         let mut hash_map: HashMap<String, argus_ed25519::Signature> = HashMap::new();
         let public_key: argus_ed25519::PublicKey = ed25519_public_key;
         if public_key.verify(message, &signature).is_ok() {
             println!("looks good... adding");
             let converted_message = String::from_utf8_lossy(&message);
             hash_map.insert(converted_message.to_string(), signature);
-            // hash_map.insert(String::from("signature"), signature);
             self.account_secrets.insert(account.to_string(), hash_map);
         }
     }
