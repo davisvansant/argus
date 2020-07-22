@@ -126,12 +126,20 @@ fn main() {
                     match secrets_options.trim().parse::<i32>().unwrap() {
                         1 => {
                             println!("create new secrets",);
-                            let secrets = state.load_account_information(&account_to_use);
+                            // let secrets = state.load_account_information(&account_to_use);
+
+                            let mut new_message_contents = String::new();
+
+                            println!("[ argus ] Please enter new message ----> ",);
+                            io::stdout().flush().unwrap();
+                            io::stdin()
+                                .read_line(&mut new_message_contents)
+                                .expect("Failed to read line");
 
                             let new_message: argus_core::message::Message =
                                 argus_core::message::Message::prepare();
                             let new_message_ed25519_public_key = new_message.ed25519_public_key();
-                            let new_message_contents = String::from("a simple message");
+                            // let new_message_contents = String::from("a simple message");
                             let new_message_signature = new_message.sign(
                                 &new_message_contents.as_bytes(),
                                 new_message_ed25519_public_key,
@@ -142,6 +150,7 @@ fn main() {
                                 new_message_contents.as_bytes(),
                                 new_message_signature,
                             );
+
                             let duration = Duration::new(5, 0);
                             thread::sleep(duration);
                         }
