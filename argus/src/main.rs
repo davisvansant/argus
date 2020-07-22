@@ -82,6 +82,8 @@ fn main() {
                     continue;
                 }
 
+                // https://doc.rust-lang.org/book/ch16-02-message-passing.html
+
                 println!("[ argus ] Loading Account information ...");
                 let mut user = state.load_account_information(&account_to_use);
                 let secrets = state.load_account_secrets(&account_to_use);
