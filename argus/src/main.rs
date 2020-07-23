@@ -158,11 +158,13 @@ fn main() {
                             println!("view current secrets",);
                             let secrets = state.load_account_secrets(&account_to_use);
 
+                            println!("{:?}", secrets.len());
+
                             for (k, v) in &mut secrets.iter() {
                                 println!("Name - {:?}", k);
                                 println!("Content - {:?}", v);
                             }
-                            let duration = Duration::new(5, 0);
+                            let duration = Duration::new(10, 0);
                             thread::sleep(duration);
                         }
                         3 => {
