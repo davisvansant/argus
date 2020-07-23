@@ -3,7 +3,9 @@ use std::collections::HashMap;
 
 pub struct State {
     pub account_salt_and_sha: HashMap<String, HashMap<String, String>>,
-    account_secrets: HashMap<String, HashMap<String, argus_ed25519::Signature>>,
+    // account_secrets: HashMap<String, HashMap<String, argus_ed25519::Signature>>,
+    account_secrets:
+        HashMap<String, HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>>>,
 }
 
 impl State {
@@ -47,7 +49,8 @@ impl State {
     pub fn save_account_secrets(
         &mut self,
         account: &Account,
-        secrets: HashMap<String, argus_ed25519::Signature>,
+        // secrets: HashMap<String, argus_ed25519::Signature>,
+        secrets: HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>>,
     ) {
         self.account_secrets.insert(account.id.to_string(), secrets);
     }
@@ -55,7 +58,8 @@ impl State {
     pub fn load_account_secrets(
         &mut self,
         account: &str,
-    ) -> &mut HashMap<String, argus_ed25519::Signature> {
+        // ) -> &mut HashMap<String, argus_ed25519::Signature> {
+    ) -> &mut HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>> {
         self.account_secrets.get_mut(&account.to_string()).unwrap()
     }
 
@@ -66,13 +70,18 @@ impl State {
         message: &[u8],
         signature: argus_ed25519::Signature,
     ) {
+        let mut bundle: HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>> =
+            HashMap::new();
         let mut hash_map: HashMap<String, argus_ed25519::Signature> = HashMap::new();
         let public_key: argus_ed25519::PublicKey = ed25519_public_key;
+        let message_uuid: argus_uuid::Uuid = argus_uuid::generate();
         if public_key.verify(message, &signature).is_ok() {
             println!("looks good... adding");
             let converted_message = String::from_utf8_lossy(&message);
             hash_map.insert(converted_message.to_string(), signature);
-            self.account_secrets.insert(account.to_string(), hash_map);
+            bundle.insert(message_uuid, hash_map);
+            // self.account_secrets.insert(account.to_string(), hash_map);
+            self.account_secrets.insert(account.to_string(), bundle);
         }
     }
 }
