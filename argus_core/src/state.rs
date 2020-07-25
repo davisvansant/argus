@@ -3,7 +3,6 @@ use std::collections::HashMap;
 
 pub struct State {
     pub account_salt_and_sha: HashMap<String, HashMap<String, String>>,
-    // account_secrets: HashMap<String, HashMap<String, argus_ed25519::Signature>>,
     account_secrets:
         HashMap<String, HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>>>,
 }
@@ -46,21 +45,19 @@ impl State {
         *current_sha.to_string() == computed_sha
     }
 
-    pub fn save_account_secrets(
-        &mut self,
-        account: &Account,
-        // secrets: HashMap<String, argus_ed25519::Signature>,
-        secrets: HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>>,
-    ) {
-        self.account_secrets.insert(account.id.to_string(), secrets);
-    }
-
+    // pub fn save_account_secrets(
+    //     &mut self,
+    //     account: &Account,
+    //     // secrets: HashMap<String, argus_ed25519::Signature>,
+    //     secrets: HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>>,
+    // ) {
+    //     self.account_secrets.insert(account.id.to_string(), secrets);
+    // }
     pub fn load_account_secrets(
         &mut self,
         account: &str,
-        // ) -> &mut HashMap<String, argus_ed25519::Signature> {
     ) -> &mut HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>> {
-        self.account_secrets.get_mut(&account.to_string()).unwrap()
+        self.account_secrets.get_mut(account).unwrap()
     }
 
     pub fn verify_message_and_save(
@@ -80,7 +77,6 @@ impl State {
             let converted_message = String::from_utf8_lossy(&message);
             hash_map.insert(converted_message.to_string(), signature);
             bundle.insert(message_uuid, hash_map);
-            // self.account_secrets.insert(account.to_string(), hash_map);
             self.account_secrets.insert(account.to_string(), bundle);
         }
     }
