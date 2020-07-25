@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 pub struct Message {
     ed25519_secret_key: argus_ed25519::ExpandedSecretKey,
 }
@@ -19,6 +21,25 @@ impl Message {
         public_key: argus_ed25519::PublicKey,
     ) -> argus_ed25519::Signature {
         argus_ed25519::ExpandedSecretKey::sign(&self.ed25519_secret_key, &message, &public_key)
+    }
+
+    pub fn sign_and_bundle(
+        &self,
+        message: &[u8],
+        public_key: argus_ed25519::PublicKey,
+    ) -> HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>> {
+        let signature =
+            argus_ed25519::ExpandedSecretKey::sign(&self.ed25519_secret_key, &message, &public_key);
+        let mut message_bundle: HashMap<
+            argus_uuid::Uuid,
+            HashMap<String, argus_ed25519::Signature>,
+        > = HashMap::new();
+        let message_uuid: argus_uuid::Uuid = argus_uuid::generate();
+        let mut bundle_map: HashMap<String, argus_ed25519::Signature> = HashMap::new();
+        let converted_message = String::from_utf8_lossy(&message);
+        bundle_map.insert(converted_message.to_string(), signature);
+        message_bundle.insert(message_uuid, bundle_map);
+        message_bundle
     }
 }
 
