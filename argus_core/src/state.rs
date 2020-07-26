@@ -1,5 +1,4 @@
 use crate::account::Account;
-// use crate::message::MessageBundle;
 use std::collections::HashMap;
 
 type Secrets =
@@ -7,11 +6,7 @@ type Secrets =
 
 pub struct State {
     pub account_salt_and_sha: HashMap<String, HashMap<String, String>>,
-    // account_secrets:
-    //     HashMap<String, HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>>>,
     account_secrets: Secrets,
-    // account_messages: HashMap<String, argus_uuid::Uuid>,
-    // messages: Vec<HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>>>,
 }
 
 impl State {
@@ -67,7 +62,6 @@ impl State {
     pub fn load_account_secrets(
         &mut self,
         account: &str,
-        // ) -> &mut HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>> {
     ) -> &mut Vec<HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>>> {
         self.account_secrets.get_mut(account).unwrap()
     }
@@ -105,20 +99,7 @@ impl State {
         account: &str,
         bundle: HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>>,
     ) {
-        // let mut messages: Vec<
-        //     HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>>,
-        // > = Vec::new();
-        // messages.push(bundle);
-        // self.account_secrets.insert(account.to_string(), messages);
         let another_m = self.account_secrets.get_mut(account).unwrap();
-        // self.account_secrets
-        //     .entry(account.to_string())
-        //     .or_insert(messages);
-        // self.account_secrets.iter_mut()
-        // for value in self.account_secrets.values_mut() {
-        //     // *value = messages;
-        //     *value = messages.push(bundle).is_ok().to_vec();
-        // }
         another_m.push(bundle);
     }
 }
