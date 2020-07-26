@@ -26,8 +26,13 @@ impl Account {
         account_information
     }
 
-    pub fn secrets(&self) -> HashMap<String, String> {
-        let secrets: HashMap<String, String> = HashMap::new();
+    // pub fn secrets(&self) -> HashMap<String, String> {
+    //     let secrets: HashMap<String, String> = HashMap::new();
+    //     secrets
+    // }
+    pub fn secrets() -> Vec<HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>>> {
+        let secrets: Vec<HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>>> =
+            Vec::new();
         secrets
     }
 }
