@@ -89,7 +89,7 @@ fn main() {
                 // https://doc.rust-lang.org/book/ch16-02-message-passing.html
 
                 println!("[ argus ] Loading Account information ...");
-                let mut user = state.load_account_information(&account_to_use);
+                let mut _user = state.load_account_information(&account_to_use);
                 println!("[ argus ] Initializing Session ...",);
                 let user_session = argus_core::session::Session::init();
                 let system = argus_core::session::Session::init();
