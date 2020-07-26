@@ -66,41 +66,13 @@ impl State {
         self.account_secrets.get_mut(account).unwrap()
     }
 
-    //
-    // pub fn verify_message_and_save(
-    //     &mut self,
-    //     account: &str,
-    //     ed25519_public_key: argus_ed25519::PublicKey,
-    //     message: &[u8],
-    //     signature: argus_ed25519::Signature,
-    // ) {
-    //     // let mut bundle_contents: HashMap<
-    //     //     argus_uuid::Uuid,
-    //     //     HashMap<String, argus_ed25519::Signature>,
-    //     // > = HashMap::new();
-    //     let mut bundle_contents: MessageBundle = HashMap::new();
-    //     let mut bundle: Vec<MessageBundle> = Vec::new();
-    //     let mut hash_map: HashMap<String, argus_ed25519::Signature> = HashMap::new();
-    //     let public_key: argus_ed25519::PublicKey = ed25519_public_key;
-    //     let message_uuid: argus_uuid::Uuid = argus_uuid::generate();
-    //     // let mut vec = Vec::new();
-    //     if public_key.verify(message, &signature).is_ok() {
-    //         println!("looks good... adding");
-    //         let converted_message = String::from_utf8_lossy(&message);
-    //         hash_map.insert(converted_message.to_string(), signature);
-    //         bundle_contents.insert(message_uuid, hash_map);
-    //         // vec.push(bundle);
-    //         bundle.push(bundle_contents);
-    //         self.account_secrets.insert(account.to_string(), bundle);
-    //     }
-
     pub fn save_message(
         &mut self,
         account: &str,
         bundle: HashMap<argus_uuid::Uuid, HashMap<String, argus_ed25519::Signature>>,
     ) {
-        let another_m = self.account_secrets.get_mut(account).unwrap();
-        another_m.push(bundle);
+        let messages = self.account_secrets.get_mut(account).unwrap();
+        messages.push(bundle);
     }
 }
 
