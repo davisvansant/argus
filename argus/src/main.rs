@@ -90,7 +90,6 @@ fn main() {
 
                 println!("[ argus ] Loading Account information ...");
                 let mut user = state.load_account_information(&account_to_use);
-                // let secrets = state.load_account_secrets(&account_to_use);
                 println!("[ argus ] Initializing Session ...",);
                 let user_session = argus_core::session::Session::init();
                 let system = argus_core::session::Session::init();
@@ -130,7 +129,6 @@ fn main() {
                     match secrets_options.trim().parse::<i32>().unwrap() {
                         1 => {
                             println!("create new secrets",);
-                            // let secrets = state.load_account_information(&account_to_use);
 
                             let mut new_message_contents = String::new();
 
@@ -140,29 +138,9 @@ fn main() {
                                 .read_line(&mut new_message_contents)
                                 .expect("Failed to read line");
 
-                            // let new_message: argus_core::message::Message =
-                            //     argus_core::message::Message::prepare();
-                            // let new_message_ed25519_public_key = new_message.ed25519_public_key();
-                            // // let new_message_contents = String::from("a simple message");
-                            // let new_message_signature = new_message.sign(
-                            //     &new_message_contents.as_bytes(),
-                            //     new_message_ed25519_public_key,
-                            // );
-                            // state.verify_message_and_save(
-                            //     &account_to_use,
-                            //     new_message_ed25519_public_key,
-                            //     new_message_contents.as_bytes(),
-                            //     new_message_signature,
-                            // );
-
                             let new_message: argus_core::message::Message =
                                 argus_core::message::Message::prepare();
                             let new_message_ed25519_public_key = new_message.ed25519_public_key();
-                            // let new_message_contents = String::from("a simple message");
-                            // let new_message_signature = new_message.sign(
-                            //     &new_message_contents.as_bytes(),
-                            //     new_message_ed25519_public_key,
-                            // );
                             let message_bundle = new_message.sign_and_bundle(
                                 &new_message_contents.as_bytes(),
                                 new_message_ed25519_public_key,
@@ -178,13 +156,8 @@ fn main() {
 
                             println!("{:?}", secrets.len());
 
-                            // for (k, v) in &mut secrets.iter() {
-                            //     println!("Name - {:?}", k);
-                            //     println!("Content - {:?}", v);
-                            // }
                             for k in &mut secrets.iter() {
                                 println!("Name - {:?}", k);
-                                // println!("Content - {:?}", v);
                             }
                             let duration = Duration::new(10, 0);
                             thread::sleep(duration);
