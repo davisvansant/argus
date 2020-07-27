@@ -7,5 +7,6 @@ members = [
   "argus_sha2",
   "argus_ed25519",
   "argus_x25519",
-  "argus_uuid"
+  "argus_uuid",
+  "argus_aes"
 ]
