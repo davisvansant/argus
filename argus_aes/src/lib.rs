@@ -1,3 +1,5 @@
+pub mod gcm;
+
 #[cfg(test)]
 mod tests {
     #[test]
