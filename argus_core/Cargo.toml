@@ -12,3 +12,4 @@ argus_rand = { path = "../argus_rand" }
 argus_sha2 = { path = "../argus_sha2" }
 argus_ed25519 = { path = "../argus_ed25519" }
 argus_uuid = { path = "../argus_uuid" }
+argus_aes = { path = "../argus_aes" }
