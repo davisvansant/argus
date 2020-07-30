@@ -1,8 +1,8 @@
-use aes_gcm::aead::generic_array::typenum::consts::U12;
-use aes_gcm::aead::{generic_array::GenericArray, Aead, NewAead};
-use aes_gcm::Aes256Gcm;
+pub use aes_gcm::aead::generic_array::typenum::consts::U12;
+pub use aes_gcm::aead::{generic_array::GenericArray, Aead, NewAead};
+pub use aes_gcm::Aes256Gcm;
 
-type Nonce = GenericArray<u8, U12>;
+pub type Nonce = GenericArray<u8, U12>;
 
 pub fn generate_cipher() -> Aes256Gcm {
     // unimplemented!();
