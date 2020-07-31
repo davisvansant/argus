@@ -5,7 +5,6 @@ pub use aes_gcm::Aes256Gcm;
 pub type Nonce = GenericArray<u8, U12>;
 
 pub fn generate_cipher() -> Aes256Gcm {
-    // unimplemented!();
     let key = argus_rand::generate_aes_key();
     let key_slice = key.as_bytes();
     let cipher_key = GenericArray::from_slice(key_slice);
@@ -13,7 +12,6 @@ pub fn generate_cipher() -> Aes256Gcm {
 }
 
 pub fn generate_nonce() -> Nonce {
-    // unimplemented!();
     let generate_nonce = argus_rand::generate_nonce();
     let nonce_slice = generate_nonce.as_bytes();
     *GenericArray::from_slice(nonce_slice)
