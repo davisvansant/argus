@@ -33,7 +33,6 @@ mod tests {
     #[test]
     fn generate_keypair_and_verify() {
         let keypair = generate_keypair();
-        // let message: &[u8] = b"This is a test of the tsunami alert system.";
         let initial_message = String::from("This is a test of the tsunami alert system.");
         let message = initial_message.as_bytes();
         let signature = generate_signature(&keypair, &message);
