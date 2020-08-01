@@ -32,7 +32,6 @@ fn main() {
                     new_account_information,
                     new_account_secrets,
                 );
-                // state.save_account_secrets(&new_account, new_account_secrets);
 
                 let duration = Duration::new(5, 0);
                 thread::sleep(duration);
