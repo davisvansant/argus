@@ -18,8 +18,6 @@ mod tests {
         let test_user_two: User = User::new();
         users.push(&test_user_one.account_number);
         users.push(&test_user_two.account_number);
-        // let test_user_one_secrets = System::secrets();
-        // let test_user_two_secrets = System::secrets();
         let test_user_one_sha = test_user_one.sha();
         let test_user_two_sha = test_user_two.sha();
         let test_user_one_public_key = test_user_one.public_key();
@@ -67,7 +65,5 @@ mod tests {
             &test_user_two_signature,
         )
         .is_ok());
-        // assert_eq!(test_user_one_secrets.len(), 0);
-        // assert_eq!(test_user_two_secrets.len(), 0);
     }
 }
