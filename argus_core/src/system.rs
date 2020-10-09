@@ -40,7 +40,7 @@ impl System {
         message: &[u8],
         signature: &argus_ed25519::Signature,
     ) -> Result<(), argus_ed25519::SignatureError> {
-        Ok(argus_ed25519::PublicKey::verify(
+        Ok(argus_ed25519::PublicKey::verify_strict(
             public_key, message, signature,
         )?)
     }

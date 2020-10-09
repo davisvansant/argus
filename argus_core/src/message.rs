@@ -54,7 +54,7 @@ mod tests {
         let test_message_signature =
             test_message.sign(&test_message_contents, test_message_ed25519_public_key);
         assert!(test_message_ed25519_public_key
-            .verify(test_message_contents, &test_message_signature)
+            .verify_strict(test_message_contents, &test_message_signature)
             .is_ok());
     }
 }
