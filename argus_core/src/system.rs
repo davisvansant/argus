@@ -40,9 +40,7 @@ impl System {
         message: &[u8],
         signature: &argus_ed25519::Signature,
     ) -> Result<(), argus_ed25519::SignatureError> {
-        Ok(argus_ed25519::PublicKey::verify_strict(
-            public_key, message, signature,
-        )?)
+        argus_ed25519::PublicKey::verify_strict(public_key, message, signature)
     }
 
     pub fn save_private_account_information(&mut self, user: User) {
