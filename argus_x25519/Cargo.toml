@@ -7,5 +7,5 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-x25519-dalek = "0.6.0"
+x25519-dalek = "1.1.0"
 argus_rand = { path = "../argus_rand" }
