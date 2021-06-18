@@ -29,18 +29,18 @@ impl State {
             .insert(account.id.to_string(), account_secrets);
     }
 
-    pub fn load_account_information(&mut self, account: &str) -> &mut HashMap<String, String> {
-        if self.account_salt_and_sha.contains_key(&account.to_string()) {
-            self.account_salt_and_sha
-                .get_mut(&account.to_string())
-                .unwrap()
-        } else {
-            println!("account not found!");
-            self.account_salt_and_sha
-                .get_mut(&account.to_string())
-                .unwrap() // need to handle - this panics
-        }
-    }
+    // pub fn load_account_information(&mut self, account: &str) -> &mut HashMap<String, String> {
+    //     if self.account_salt_and_sha.contains_key(&account.to_string()) {
+    //         self.account_salt_and_sha
+    //             .get_mut(&account.to_string())
+    //             .unwrap()
+    //     } else {
+    //         println!("account not found!");
+    //         self.account_salt_and_sha
+    //             .get_mut(&account.to_string())
+    //             .unwrap() // need to handle - this panics
+    //     }
+    // }
 
     pub fn verify_pin(&self, account: &str, pin: &str) -> bool {
         let account_information = self.account_salt_and_sha.get(&account.to_string()).unwrap();
