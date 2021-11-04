@@ -141,7 +141,7 @@ fn main() {
                                 argus_core::message::Message::prepare();
                             let new_message_ed25519_public_key = new_message.ed25519_public_key();
                             let message_bundle = new_message.sign_and_bundle(
-                                &new_message_contents.as_bytes(),
+                                new_message_contents.as_bytes(),
                                 new_message_ed25519_public_key,
                             );
                             state.save_message(&account_to_use, message_bundle);
