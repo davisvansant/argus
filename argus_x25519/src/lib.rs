@@ -1,13 +1,13 @@
 pub use x25519_dalek::{EphemeralSecret, PublicKey, SharedSecret, StaticSecret};
 
 pub fn generate_ephermeral_secret() -> EphemeralSecret {
-    let mut rng = argus_rand::generate_osrng();
-    x25519_dalek::EphemeralSecret::new(&mut rng)
+    let rng = argus_rand::generate_osrng();
+    x25519_dalek::EphemeralSecret::new(rng)
 }
 
 pub fn generate_static_secret() -> StaticSecret {
-    let mut rng = argus_rand::generate_osrng();
-    x25519_dalek::StaticSecret::new(&mut rng)
+    let rng = argus_rand::generate_osrng();
+    x25519_dalek::StaticSecret::new(rng)
 }
 
 pub fn generate_public_key_from_ephemeral_secret(secret: &EphemeralSecret) -> PublicKey {

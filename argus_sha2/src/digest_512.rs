@@ -3,12 +3,12 @@ use sha2::{Digest, Sha512};
 pub fn build_object(password: &str, salt: &str) -> String {
     let mut hasher = Sha512::new();
 
-    hasher.update(&password);
-    hasher.update(&salt);
+    hasher.update(password);
+    hasher.update(salt);
 
     let built_hash = hasher.finalize();
 
-    hex::encode(&built_hash)
+    hex::encode(built_hash)
 }
 
 #[cfg(test)]

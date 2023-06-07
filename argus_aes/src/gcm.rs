@@ -1,6 +1,6 @@
 pub use aes_gcm::aead::generic_array::typenum::consts::U12;
-pub use aes_gcm::aead::{generic_array::GenericArray, Aead, NewAead};
-pub use aes_gcm::Aes256Gcm;
+pub use aes_gcm::aead::{generic_array::GenericArray, Aead};
+pub use aes_gcm::{Aes256Gcm, KeyInit};
 
 pub type Nonce = GenericArray<u8, U12>;
 

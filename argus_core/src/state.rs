@@ -46,7 +46,7 @@ impl State {
         let account_information = self.account_salt_and_sha.get(&account.to_string()).unwrap();
         let current_salt = &account_information.get(&String::from("salt")).unwrap();
         let current_sha = &account_information.get(&String::from("sha")).unwrap();
-        let computed_sha = argus_sha2::digest_512::build_object(&pin.to_string(), current_salt);
+        let computed_sha = argus_sha2::digest_512::build_object(pin, current_salt);
         *current_sha.to_string() == computed_sha
     }
 
